@@ -6,11 +6,19 @@ A visitor should be able to open the lab and answer a specific question in one i
 
 1. Open the synthetic example at a paused moment with a meaningful comparison already visible. Use a 0.75 BTC market buy and a 250 ms delay as the starting values.
 2. Play, pause, or scrub a single timeline. Mark both the selected time and the delayed time on the same chart. Keep the order and delay fixed while the playhead moves.
-3. Choose Buy or Sell, enter a BTC quantity, and adjust the delay from 0 to 1,000 ms. Pair the slider with an editable millisecond value for precise input. Recalculate as valid inputs change.
+3. Choose Buy or Sell, enter a BTC quantity, and adjust the delay from 0 to 1,000 ms. Pair the slider with an editable millisecond value supporting up to three decimal places. Recalculate as valid inputs change.
 4. Compare two book snapshots, labeled “At playhead” and “250 ms later” at the default setting. In each, highlight the consumed levels and show exactly how much BTC was taken at each price. Show filled and unfilled quantity and the weighted average in USD per BTC.
 5. Show the signed delayed-minus-baseline average price difference with “More expensive” or “Cheaper” for buys and “Lower proceeds per BTC” or “Higher proceeds per BTC” for sells. Use “Same average price” when both averages are equal. When fill sizes differ, make both fill amounts visible next to the averages so users can interpret the comparison.
 
 Use the same flow for the bundled demo, an imported file, and a saved local capture. Keep recording, import, and the local library together under the recording selector. Label the source, time basis, and published depth near the replay controls. Live capture starts only when a visitor selects “Record Kraken feed.”
+
+## Analysis controls
+
+- **Latency sweep** fixes the playhead, side, and size. Show the change in average fill price and filled BTC across the delay range. Selecting the chart changes the delay. Previous and next fill change buttons jump to exact changes in the estimate. Shade delays beyond the recording.
+- **Book changes** adds a signed BTC column beside taken quantity in both books. Mark newly visible and missing price levels as “Added” and “Removed.” The column describes displayed depth, including prices that enter or leave the recorded range.
+- **Size sweep** fixes the playhead, delay, and side. Compare average fill price and filled BTC at both times and label their displayed liquidity limits. Selecting a chart sample updates the order quantity and both books. The range input provides keyboard access to each sample.
+- **Step controls** jump between distinct recorded update times, including the initial snapshot. Each jump pauses playback.
+- **Copy experiment link** shares the bundled synthetic demo and its current setup via the URL fragment. The control is available on the bundled recording.
 
 ## Screen and visual direction
 

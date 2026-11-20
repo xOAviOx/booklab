@@ -26,8 +26,13 @@ Ship the bundled experiment first, then use the same pipeline for saved recordin
 - [x] Measure input-to-result latency on a representative 60-second recording. Record the observed timing in [Progress](PROGRESS.md).
 - [x] Document install, development, test, and build commands in [README](../README.md).
 
+## Replay analysis
+
+- [x] Add linked latency and size sweeps, including exact fill changes and displayed depth limits.
+- [x] Add the book-change overlay and previous and next recorded update controls.
+- [x] Add versioned demo share links with exact order settings.
+
 ## After the weekend
 
-- Add step-by-update controls and shareable experiment settings for reproducible demonstrations.
 - Consider a Kraken exchange-timestamp mode once its ordering, clock assumptions, and data quality can be shown clearly.
-- Consider parameter sweeps and a deeper recording subscription after measuring storage and seek costs on longer captures.
+- Consider a deeper recording subscription after measuring storage and seek costs on longer captures.

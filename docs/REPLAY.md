@@ -16,10 +16,17 @@
 
 ## Seek and simulate
 
-- A query takes the playhead time, delay, side, and a positive BTC amount. Pass the playhead and delay to Rust as nonnegative integer microseconds. Convert the UI’s delay from milliseconds to microseconds at the worker boundary. Use checked addition for the delayed time. At each time, use the state after every complete frame with `elapsed_us` at or before that time. Between frames the last verified book holds. The valid domain is inclusive from the snapshot through the last verified book frame. An out-of-range time is unavailable.
+- A query takes the playhead time, delay, side, and a positive BTC amount. The browser converts the delay input to integer microseconds before sending it through the worker. Use checked addition for the delayed time. At each time, use the state after every complete frame with `elapsed_us` at or before that time. Between frames the last verified book holds. The valid domain is inclusive from the snapshot through the last verified book frame. An out-of-range time is unavailable.
 - Compare the same order independently against both books. A buy consumes asks from lowest to highest price. A sell consumes bids from highest to lowest. At each level, take the smaller of the displayed quantity and the order’s remainder. Stop when filled or when the recorded side is exhausted. The replay never carries simulated consumption into the next frame or the other scenario.
 - Return consumed levels, filled and unfilled BTC, USD notional, and volume-weighted average price in USD per BTC. Average price is total filled notional divided by filled quantity. The signed delta is delayed average minus baseline average. Return it only when both scenarios fill some BTC. Compare the unrounded averages before formatting.
 - Represent normalized price and quantity as fixed-point integers with up to eight decimal places each for this BTC/USD model. Accept values that fit exactly, including extra trailing zeros in feed tokens. Use checked integer arithmetic for notional and exact ratio calculations. Round average prices and the delta to the nearest cent for presentation only, with halfway values rounded away from zero. Keep the exact sign of the delta and display changes that round to zero as under one cent with their direction. Reject unsupported precision, overflow, or invalid order size with a clear error.
+
+## Compare and sweep
+
+- **Latency** runs the order at delay zero, then applies each group of frames with the same receive time through the next second or the recording end. Emit a new point only when exact filled quantity or notional changes. Zero fill has no average or price delta. The step plot holds the last result through the final verified time.
+- **Size** samples up to 96 evenly spaced sizes and includes each cumulative executable-side price-level quantity from both books, the selected size, and the smallest positive size. The axis extends 25 percent past the larger displayed capacity or up to the selected size when it is larger, subject to the engine’s size limit. Charts connect samples. The book panels calculate the selected order exactly.
+- **Changes** match the reconstructed snapshots by side and price before executing either hypothetical order. The signed quantity is the delayed displayed quantity minus the baseline displayed quantity. Treat an absent level as zero displayed quantity at that time.
+- **Step** uses the sorted distinct frame times. Updates with the same time appear together, consistent with the inclusive query rule.
 
 ## Golden examples
 
