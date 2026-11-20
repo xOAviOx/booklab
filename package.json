@@ -1,0 +1,30 @@
+{
+  "name": "order-book-replay-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "^20.19.0 || >=22.12.0" },
+  "scripts": {
+    "build:wasm": "wasm-pack build crates/replay-core --target web --release --locked",
+    "dev": "npm run build:wasm && vite",
+    "typecheck": "tsc --noEmit",
+    "test:core": "cargo test --locked",
+    "build": "npm run build:wasm && npm run typecheck && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.2.0",
+    "@fontsource/ibm-plex-mono": "^5.2.0",
+    "idb": "^8.0.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.8",
+    "wasm-pack": "0.15.1"
+  }
+}
